@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MexGrid App Studio | #07 Telegram E-commerce Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background:
+        radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.24), transparent 42%),
+        radial-gradient(circle at 88% 12%, rgba(236, 72, 153, 0.20), transparent 42%),
+        radial-gradient(circle at 50% 96%, rgba(16, 185, 129, 0.16), transparent 50%),
+        #030712;
+      color: #f1f5f9;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .pulse-dot { animation: pulseDot 1.4s infinite; }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.65; }
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-24">
+
+  <!-- Mobile-First Company Header -->
+  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-xl border-b border-sky-500/35 px-3.5 py-2.5 shadow-xl">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-2xl bg-gradient-to-br from-sky-500 via-blue-600 to-fuchsia-600 flex items-center justify-center text-white font-black text-base sm:text-lg shadow-lg shadow-sky-500/30">
+          <i class="fas fa-store"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="text-sm sm:text-base font-black tracking-wide text-white truncate">
+            MEXGRID APP STUDIO
+          </div>
+          <div class="text-[11px] font-bold text-sky-300 truncate">
+            #07 Telegram E-commerce Shop
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button type="button" onclick="switchTab('tabCart')" class="px-2.5 py-1.5 rounded-xl text-[11px] font-black bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 cursor-pointer">
+          <i class="fas fa-shopping-bag mr-1"></i> Cart (<span id="headerCartCount">1</span>)
+        </button>
+        <button type="button" onclick="openOfferInbox()" class="px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-black bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 shadow hover:opacity-95 transition cursor-pointer">
+          <i class="fas fa-tags mr-1"></i> Offer
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Right Side Quick Dock -->
+  <aside class="hidden sm:flex fixed right-3 top-1/2 -translate-y-1/2 z-40 flex-col gap-2 bg-slate-900/95 border border-sky-500/35 p-2 rounded-2xl shadow-2xl">
+    <button type="button" onclick="switchTab('tabShop')" title="Product Storefront" class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm flex items-center justify-center transition cursor-pointer">
+      <i class="fas fa-store"></i>
+    </button>
+    <button type="button" onclick="switchTab('tabCart')" title="Shopping Bag & Checkout" class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 text-white text-sm flex items-center justify-center transition cursor-pointer">
+      <i class="fas fa-shopping-bag"></i>
+    </button>
+    <button type="button" onclick="switchTab('tabWallet')" title="Wallet (Deposit/Withdraw)" class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white text-sm flex items-center justify-center transition cursor-pointer">
+      <i class="fas fa-wallet"></i>
+    </button>
+    <button type="button" onclick="openOfferInbox()" title="Offer & Plans" class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 text-sm flex items-center justify-center transition cursor-pointer">
+      <i class="fas fa-tags"></i>
+    </button>
+  </aside>
+
+  <main class="max-w-6xl mx-auto px-3.5 sm:px-4 pt-4">
+
+    <!-- ==================== TAB 1: TELEGRAM E-COMMERCE STOREFRONT ==================== -->
+    <section id="tabShop" class="space-y-4">
+
+      <!-- Shopping Hero Banner -->
+      <div class="rounded-3xl bg-gradient-to-br from-sky-600/25 via-blue-700/20 to-fuchsia-600/20 border border-sky-400/45 p-4 sm:p-6 shadow-2xl">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+          <div>
+            <span class="inline-block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-sky-300">
+              MexGrid App Studio • Category #07 Demo (Large HD Visuals)
+            </span>
+            <h1 class="text-xl sm:text-3xl font-black text-white mt-1 leading-tight">
+              Instant Telegram & Mini-Store Shopping Experience
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-200 mt-1.5 max-w-2xl leading-relaxed">
+              Explore watches, digital smartwatches, smart eyewear, audio & lifestyle gear with large clear product visuals, instant Add to Bag / Buy Now, bag checkout, and deposit/withdraw wallet controls.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="switchTab('tabCart')" class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:opacity-95 transition cursor-pointer">
+              <i class="fas fa-shopping-bag mr-1"></i> Open Bag (<span id="heroBagCount">1</span>)
+            </button>
+            <button type="button" onclick="switchTab('tabWallet')" class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg hover:opacity-95 transition cursor-pointer">
+              <i class="fas fa-wallet mr-1"></i> Wallet
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-3.5 rounded-2xl bg-slate-950/75 border border-sky-400/25 px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs">
+          <span class="text-slate-200 font-semibold">
+            <i class="fas fa-shield-halved text-emerald-400 mr-1"></i>
+            <strong class="text-white">100% Genuine System</strong> • 50% Now & 50% After Delivery
+          </span>
+          <span class="text-amber-300 font-bold">
+            <i class="fas fa-award mr-1"></i> 3-Year Free Support on Delivered Features (New features/add-ons extra)
+          </span>
+        </div>
+      </div>
+
+      <!-- 4 Colorful Shop KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="rounded-2xl bg-gradient-to-br from-sky-600/25 to-slate-900 border border-sky-400/45 p-3.5 sm:p-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-extrabold text-sky-300">SHOP CATALOG</span>
+            <i class="fas fa-boxes-stacked text-sky-400"></i>
+          </div>
+          <div class="text-lg sm:text-2xl font-black text-white mt-1">9 Items</div>
+          <div class="text-[10px] text-sky-200 mt-0.5">Large clear product images</div>
+        </div>
+
+        <div class="rounded-2xl bg-gradient-to-br from-emerald-600/25 to-slate-900 border border-emerald-400/45 p-3.5 sm:p-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-extrabold text-emerald-300">SHOPPING BAG</span>
+            <i class="fas fa-cart-shopping text-emerald-400"></i>
+          </div>
+          <div id="kpiBagTotal" class="text-lg sm:text-2xl font-black text-white mt-1">$89.00</div>
+          <div id="kpiBagItemsSub" class="text-[10px] text-emerald-200 mt-0.5">1 item selected</div>
+        </div>
+
+        <div class="rounded-2xl bg-gradient-to-br from-purple-600/25 to-slate-900 border border-purple-400/45 p-3.5 sm:p-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-extrabold text-purple-300">WALLET BALANCE</span>
+            <i class="fas fa-wallet text-purple-400"></i>
+          </div>
+          <div id="kpiShopWallet" class="text-lg sm:text-2xl font-black text-white mt-1">$240.00</div>
+          <div class="text-[10px] text-purple-200 mt-0.5">Pay from wallet or checkout</div>
+        </div>
+
+        <div class="rounded-2xl bg-gradient-to-br from-amber-500/25 to-slate-900 border border-amber-400/45 p-3.5 sm:p-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-extrabold text-amber-300">ORDERS PLACED</span>
+            <i class="fas fa-receipt text-amber-400"></i>
+          </div>
+          <div id="kpiOrdersCount" class="text-lg sm:text-2xl font-black text-white mt-1">1 Order</div>
+          <div class="text-[10px] text-amber-200 mt-0.5">Instant order log</div>
+        </div>
+      </div>
+
+      <!-- Product Category Filter Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" id="pCatALL" onclick="filterProducts('ALL')" class="px-3.5 py-1.5 rounded-xl text-xs font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-pointer">
+            All Products (9)
+          </button>
+          <button type="button" id="pCatWatches" onclick="filterProducts('Watches')" class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 border border-slate-700 hover:border-sky-400 cursor-pointer">
+            Watches & Smartwatches
+          </button>
+          <button type="button" id="pCatEyewear" onclick="filterProducts('Eyewear')" class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 border border-slate-700 hover:border-emerald-400 cursor-pointer">
+            Smart Eyewear & Shades
+          </button>
+          <button type="button" id="pCatTech" onclick="filterProducts('Tech')" class="px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 border border-slate-700 hover:border-amber-400 cursor-pointer">
+            Audio & Tech Gear
+          </button>
+        </div>
+
+        <div id="shopToast" class="text-xs font-extrabold text-emerald-300"></div>
+      </div>
+
+      <!-- 9 Rich E-Commerce Product Cards with Large Clear Product Images -->
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+      <!-- Recent Shop Orders Feed -->
+      <div class="rounded-3xl bg-gradient-to-br from-slate-900 via-blue-950/25 to-slate-900 border border-sky-500/35 p-4 sm:p-5">
+        <div class="flex items-center justify-between mb-2.5">
+          <h3 class="text-sm sm:text-base font-black text-white">
+            <i class="fas fa-bolt text-amber-400 mr-2"></i>Recent Shop & Bag Activity
+          </h3>
+          <span class="text-[10px] font-extrabold text-emerald-400">LIVE</span>
+        </div>
+        <div id="shopActivityFeed" class="space-y-2 text-xs">
+          <div class="rounded-xl bg-slate-950/85 border border-emerald-500/30 px-3 py-2.5 flex items-center justify-between gap-2">
+            <span class="text-slate-200">Sample order #TG-1041 confirmed (Vanguard Digital Smartwatch)</span>
+            <span class="font-extrabold text-emerald-400 shrink-0">CONFIRMED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- English Description Box at the Bottom of Main Page -->
+      <div id="shopDescBox" class="rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950/30 to-slate-900 border border-sky-400/45 p-4 sm:p-6 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 class="text-base sm:text-lg font-black text-white">
+            <i class="fas fa-circle-info text-sky-400 mr-2"></i>#07 Telegram E-commerce Shop — Description Box
+          </h2>
+          <span class="px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/45">
+            20% OFF Today • 50% Now / 50% After Delivery
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="rounded-2xl bg-gradient-to-br from-sky-600/20 to-slate-950 border border-sky-400/35 p-3.5">
+            <h3 class="text-xs font-black text-sky-300 uppercase">What Type of Shop Is This?</h3>
+            <p class="text-xs text-slate-200 mt-1.5 leading-relaxed">
+              A Telegram E-commerce Shop with large clear product visuals, category filtering, Add to Bag / Buy Now actions, bag checkout, and a deposit/withdraw wallet.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-gradient-to-br from-emerald-600/20 to-slate-950 border border-emerald-400/35 p-3.5">
+            <h3 class="text-xs font-black text-emerald-300 uppercase">What Is It Useful For?</h3>
+            <p class="text-xs text-slate-200 mt-1.5 leading-relaxed">
+              Showcases watches, smartwatches, eyewear, and gadgets cleanly while letting buyers manage quantities and place orders fast on mobile.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-gradient-to-br from-purple-600/20 to-slate-950 border border-purple-400/35 p-3.5">
+            <h3 class="text-xs font-black text-purple-300 uppercase">Where Can You Use It?</h3>
+            <p class="text-xs text-slate-200 mt-1.5 leading-relaxed">
+              Ideal for Telegram mini-shops, fashion & wearable catalogs, gadget stores, and mobile shopping storefronts.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-gradient-to-br from-amber-600/20 to-slate-950 border border-amber-400/35 p-3.5">
+            <h3 class="text-xs font-black text-amber-300 uppercase">3-Year Support & Add-Ons</h3>
+            <p class="text-xs text-slate-200 mt-1.5 leading-relaxed">
+              Any bug or issue in delivered features is fixed free for 3 years; brand-new features or extra add-ons are charged separately.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: SHOPPING BAG & CHECKOUT ==================== -->
+    <section id="tabCart" class="hidden space-y-4">
+      <div class="rounded-3xl bg-slate-900/95 border border-emerald-500/35 p-4 sm:p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg sm:text-xl font-black text-white">
+              <i class="fas fa-shopping-bag text-emerald-400 mr-2"></i>Shopping Bag & Instant Buy Checkout
+            </h2>
+            <p class="text-xs text-slate-300 mt-0.5">Adjust item quantities, inspect large product images, and complete a demo checkout.</p>
+          </div>
+          <div class="px-4 py-2 rounded-2xl bg-emerald-500/20 border border-emerald-400/45 text-right">
+            <div class="text-[10px] font-extrabold uppercase text-emerald-200">Bag Subtotal</div>
+            <div id="cartTabSubtotal" class="text-lg sm:text-xl font-black text-emerald-300">$89.00</div>
+          </div>
+        </div>
+
+        <div id="cartItemsList" class="space-y-3"></div>
+
+        <div class="rounded-2xl bg-slate-950/90 border border-slate-800 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="text-xs text-slate-300">
+            Wallet Available: <strong id="cartTabWallet" class="text-cyan-300">$240.00</strong> • Demo checkout deducts from wallet balance if available.
+          </div>
+          <button type="button" onclick="checkoutBagNow()" class="px-5 py-3 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:opacity-95 transition cursor-pointer">
+            <i class="fas fa-check-circle mr-1"></i> Place Demo Order Now
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: WALLET (DEPOSIT & WITHDRAW) ==================== -->
+    <section id="tabWallet" class="hidden space-y-4">
+      <div class="rounded-3xl bg-slate-900/95 border border-purple-500/35 p-4 sm:p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg sm:text-xl font-black text-white">
+              <i class="fas fa-wallet text-purple-400 mr-2"></i>Shop Wallet — Deposit & Withdraw
+            </h2>
+            <p class="text-xs text-slate-300 mt-0.5">Deposit demo funds for shopping or withdraw store credits.</p>
+          </div>
+          <div class="px-4 py-2 rounded-2xl bg-purple-500/20 border border-purple-400/45 text-right">
+            <div class="text-[10px] font-extrabold uppercase text-purple-200">Wallet Balance</div>
+            <div id="walletTabBal" class="text-lg sm:text-xl font-black text-purple-300">$240.00</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Deposit -->
+          <div class="rounded-2xl bg-gradient-to-br from-emerald-600/20 via-teal-950/40 to-slate-950 border border-emerald-400/45 p-4 space-y-3">
+            <h3 class="text-base font-black text-emerald-300"><i class="fas fa-arrow-down mr-1.5"></i>Deposit Funds</h3>
+            <div>
+              <label class="text-xs font-bold text-slate-300">Payment Method</label>
+              <select id="sDepMethod" class="w-full mt-1 rounded-xl bg-slate-950 border border-emerald-500/40 px-3 py-2.5 text-xs text-white">
+                <option value="UPI / INR Instant">UPI / INR Instant</option>
+                <option value="USDT (TRC20 / BEP20)">USDT (TRC20 / BEP20)</option>
+                <option value="Card / Wallet Credit">Card / Wallet Credit</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-300">Deposit Amount ($)</label>
+              <input type="number" id="sDepAmt" placeholder="e.g. 100" class="w-full mt-1 rounded-xl bg-slate-950 border border-emerald-500/40 px-3 py-2.5 text-sm text-white" />
+            </div>
+            <button type="button" onclick="doShopDeposit()" class="w-full py-3 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg hover:opacity-95 transition cursor-pointer">
+              <i class="fas fa-plus-circle mr-1"></i> Deposit Now
+            </button>
+          </div>
+
+          <!-- Withdraw -->
+          <div class="rounded-2xl bg-gradient-to-br from-amber-600/20 via-orange-950/40 to-slate-950 border border-amber-400/45 p-4 space-y-3">
+            <h3 class="text-base font-black text-amber-300"><i class="fas fa-arrow-up mr-1.5"></i>Withdraw Funds</h3>
+            <div>
+              <label class="text-xs font-bold text-slate-300">Payout Method</label>
+              <select id="sWdMethod" class="w-full mt-1 rounded-xl bg-slate-950 border border-amber-500/40 px-3 py-2.5 text-xs text-white">
+                <option value="UPI / INR Instant">UPI / INR Instant</option>
+                <option value="USDT (TRC20 / BEP20)">USDT (TRC20 / BEP20)</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-300">Withdraw Amount ($)</label>
+              <input type="number" id="sWdAmt" placeholder="e.g. 50" class="w-full mt-1 rounded-xl bg-slate-950 border border-amber-500/40 px-3 py-2.5 text-sm text-white" />
+            </div>
+            <button type="button" onclick="doShopWithdraw()" class="w-full py-3 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-lg hover:opacity-95 transition cursor-pointer">
+              <i class="fas fa-paper-plane mr-1"></i> Withdraw Now
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-2">Shop Wallet & Order Ledger</h3>
+          <div id="shopWalletLedger" class="space-y-2 text-xs">
+            <div class="rounded-xl bg-slate-950/85 border border-emerald-500/30 px-3.5 py-2.5 flex items-center justify-between">
+              <span class="text-slate-200"><strong class="text-emerald-300">[DEPOSIT]</strong> Opening Demo Shop Wallet</span>
+              <span class="font-extrabold text-emerald-400">+$240.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Styled App Footer Card (Named After #07 Telegram E-commerce Shop) -->
+    <footer class="mt-6 rounded-3xl bg-gradient-to-b from-slate-900/95 to-slate-950 border border-sky-500/30 px-5 py-6 text-center shadow-xl">
+      <div class="text-lg font-black text-white tracking-tight">#07 Telegram E-commerce Shop</div>
+      <div class="text-xs text-slate-400 mt-1">MexGrid App Studio • Watches, Smartwatches, Eyewear & Wallet Demo</div>
+      <div class="flex flex-wrap items-center justify-center gap-5 mt-4 text-xs font-bold text-slate-300">
+        <button type="button" onclick="switchTab('tabShop')" class="hover:text-sky-300 transition cursor-pointer">Shop</button>
+        <button type="button" onclick="switchTab('tabCart')" class="hover:text-emerald-300 transition cursor-pointer">Bag</button>
+        <button type="button" onclick="openOfferInbox()" class="hover:text-amber-300 transition cursor-pointer">Offer</button>
+        <button type="button" onclick="scrollToShopAbout()" class="hover:text-purple-300 transition cursor-pointer">About</button>
+      </div>
+      <div class="text-[11px] text-slate-500 mt-4">© 2026 MexGrid App Studio. All Rights Reserved.</div>
+    </footer>
+  </main>
+
+  <!-- ==================== OFFER INBOX POPUP MODAL (Order Now & Pay Now Inside) ==================== -->
+  <div id="offerModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-3 overflow-y-auto">
+    <div class="w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-3xl bg-slate-950 border border-sky-500/50 p-5 sm:p-6 relative shadow-2xl">
+      <button type="button" onclick="closeOfferInbox()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center cursor-pointer">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="pr-10">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/45">
+          20% OFF TODAY • INR (₹) & CRYPTO (USDT) • 3-YEAR FREE SUPPORT
+        </span>
+        <h2 class="text-xl sm:text-2xl font-black text-white mt-2">#07 Telegram E-commerce Shop — Plans & Offer</h2>
+        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+          <strong class="text-white">Payment Rule:</strong> Pay 50% now and 50% after delivery.
+          <strong class="text-white">3-Year Support Rule:</strong> Any bug or issue in delivered features is fixed free for 3 years; brand-new features or extra add-ons requested later are charged separately.
+        </p>
+      </div>
+
+      <!-- Currency Toggle -->
+      <div class="flex flex-wrap items-center gap-2 mt-4">
+        <span class="text-xs font-bold text-slate-400 mr-1">Checkout Currency:</span>
+        <button type="button" id="currBtnINR" onclick="changeCurrency('INR')" class="px-4 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-pointer">
+          Pay in INR (₹)
+        </button>
+        <button type="button" id="currBtnCRYPTO" onclick="changeCurrency('CRYPTO')" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-800 text-slate-200 border border-slate-700 cursor-pointer">
+          Pay in Crypto (USDT)
+        </button>
+      </div>
+
+      <!-- 3 Distinct Tiers for #07 -->
+      <div id="offerTiersGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4"></div>
+
+      <!-- Summary + Order Now & Pay Now -->
+      <div class="mt-5 rounded-2xl bg-gradient-to-r from-slate-900 via-sky-950/35 to-slate-900 border border-sky-500/40 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <div id="selectedOfferSummary" class="text-xs sm:text-sm font-black text-sky-300"></div>
+          <div class="text-[11px] text-slate-300 mt-0.5">100% Genuine • 50% Now / 50% After Delivery • 3-Year Free Support on Delivered Features</div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" onclick="orderSelectedOffer()" class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md hover:opacity-95 transition cursor-pointer">
+            <i class="fab fa-whatsapp mr-1"></i> Order Now
+          </button>
+          <button type="button" onclick="paySelectedOffer()" class="px-4 py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md hover:opacity-95 transition cursor-pointer">
+            <i class="fas fa-qrcode mr-1"></i> Pay Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fallback Pay Modal -->
+  <div id="fallbackPayModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3">
+    <div class="w-full max-w-md rounded-3xl bg-slate-950 border border-sky-500/50 p-5 relative shadow-2xl">
+      <button type="button" onclick="closeFallbackPay()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center cursor-pointer">
+        <i class="fas fa-times"></i>
+      </button>
+      <span class="inline-block px-3 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/45">
+        PAY GATEWAY HANDOFF
+      </span>
+      <h3 class="text-lg font-black text-white mt-2">Proceed to Pay</h3>
+      <p id="fallbackPayMessage" class="text-xs text-slate-300 mt-2 leading-relaxed"></p>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <button type="button" onclick="orderSelectedOffer()" class="px-4 py-2 rounded-xl text-xs font-black bg-emerald-600 text-white cursor-pointer">
+          <i class="fab fa-whatsapp mr-1"></i> Confirm via WhatsApp
+        </button>
+        <button type="button" onclick="closeFallbackPay()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-200 cursor-pointer">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Bottom Navigation Bar (Demo Sections + Offer Only, NO Order/Pay here) -->
+  <nav class="fixed bottom-0 inset-x-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-sky-500/35 px-2.5 py-2">
+    <div class="max-w-2xl mx-auto grid grid-cols-5 gap-1.5">
+      <button type="button" id="nav_tabShop" onclick="switchTab('tabShop')" class="py-2 px-1 rounded-xl text-[11px] font-extrabold flex flex-col items-center gap-0.5 bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-pointer">
+        <i class="fas fa-store"></i><span>Shop</span>
+      </button>
+      <button type="button" id="nav_tabCart" onclick="switchTab('tabCart')" class="py-2 px-1 rounded-xl text-[11px] font-extrabold flex flex-col items-center gap-0.5 bg-slate-900 text-slate-300 hover:text-white cursor-pointer">
+        <i class="fas fa-shopping-bag"></i><span>Bag</span>
+      </button>
+      <button type="button" id="nav_tabWallet" onclick="switchTab('tabWallet')" class="py-2 px-1 rounded-xl text-[11px] font-extrabold flex flex-col items-center gap-0.5 bg-slate-900 text-slate-300 hover:text-white cursor-pointer">
+        <i class="fas fa-wallet"></i><span>Wallet</span>
+      </button>
+      <button type="button" onclick="scrollToShopAbout()" class="py-2 px-1 rounded-xl text-[11px] font-extrabold flex flex-col items-center gap-0.5 bg-slate-900 text-slate-300 hover:text-white cursor-pointer">
+        <i class="fas fa-info-circle"></i><span>About</span>
+      </button>
+      <button type="button" onclick="openOfferInbox()" class="py-2 px-1 rounded-xl text-[11px] font-black flex flex-col items-center gap-0.5 bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 cursor-pointer">
+        <i class="fas fa-tags"></i><span>Offer</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    const COMPANY_NAME = "MexGrid App Studio";
+    const APP_TITLE = "#07 Telegram E-commerce Shop";
+    const FALLBACK_WA = "919876543210";
+
+    // Distinct Pricing for #07 Telegram E-commerce Shop (20% OFF applied)
+    const SHOP_PLANS = [
+      {
+        id: "basic",
+        name: "Basic",
+        badge: "SHOP STARTER",
+        gradient: "from-sky-600/25 via-blue-950/60 to-slate-900 border-sky-400/50",
+        desc: "Large product visuals, category tabs & clean mobile storefront.",
+        inrReg: 6500, inrOff: 5200,
+        usdtReg: 88, usdtOff: 70
+      },
+      {
+        id: "middle",
+        name: "Middle",
+        badge: "BAG & CHECKOUT PRO",
+        gradient: "from-emerald-600/25 via-teal-950/60 to-slate-900 border-emerald-400/60",
+        desc: "Add to bag, instant Buy, quantity controls, order log & deposit/withdraw wallet.",
+        inrReg: 14000, inrOff: 11200,
+        usdtReg: 190, usdtOff: 152
+      },
+      {
+        id: "full",
+        name: "Full",
+        badge: "COMPLETE E-COMMERCE HUB",
+        gradient: "from-fuchsia-600/25 via-purple-950/60 to-slate-900 border-fuchsia-400/55",
+        desc: "Full Telegram e-commerce experience, catalog filters, wallet ledger & order workflow.",
+        inrReg: 22500, inrOff: 18000,
+        usdtReg: 300, usdtOff: 240
+      }
+    ];
+
+    // Large, Sharp, Smart Product Illustrations (Analog Watch, Digital Smartwatch, Eyewear & Tech)
+    function makeSmartwatchImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#091326"/><stop offset="55%" stop-color="#0f294a"/><stop offset="100%" stop-color="#06282a"/>
+          </linearGradient>
+          <linearGradient id="scr1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#020617"/><stop offset="100%" stop-color="#082f49"/>
+          </linearGradient>
+          <linearGradient id="strap1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#334155"/><stop offset="50%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg1)"/>
+        <circle cx="300" cy="190" r="145" fill="#22d3ee" fill-opacity="0.08"/>
+        <!-- Top & Bottom Straps -->
+        <rect x="246" y="18" width="108" height="72" rx="16" fill="url(#strap1)" stroke="#475569" stroke-width="2"/>
+        <rect x="246" y="290" width="108" height="72" rx="16" fill="url(#strap1)" stroke="#475569" stroke-width="2"/>
+        <!-- Crown & Side Button -->
+        <rect x="394" y="142" width="14" height="34" rx="5" fill="#94a3b8"/>
+        <rect x="394" y="192" width="11" height="44" rx="4" fill="#64748b"/>
+        <!-- Watch Case -->
+        <rect x="206" y="84" width="188" height="212" rx="44" fill="#475569" stroke="#94a3b8" stroke-width="3"/>
+        <rect x="216" y="94" width="168" height="192" rx="36" fill="url(#scr1)" stroke="#38bdf8" stroke-width="2"/>
+        <!-- Digital Watch Face UI -->
+        <text x="234" y="124" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#38bdf8">FRI 27 NOV</text>
+        <text x="366" y="124" text-anchor="end" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#34d399">94%</text>
+        <text x="300" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="44" font-weight="900" fill="#ffffff">12:15</text>
+        <circle cx="256" cy="216" r="18" fill="none" stroke="#1e293b" stroke-width="5"/>
+        <circle cx="256" cy="216" r="18" fill="none" stroke="#22d3ee" stroke-width="5" stroke-dasharray="86 114"/>
+        <text x="256" y="220" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#e0f2fe">8.4K</text>
+        <rect x="292" y="200" width="74" height="32" rx="10" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+        <text x="329" y="214" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#6ee7b7">HEART RATE</text>
+        <text x="329" y="227" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="900" fill="#ffffff">74 BPM</text>
+        <text x="300" y="262" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="800" fill="#fbbf24">AMOLED • GPS • BT CALL</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makeClassicWatchImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#14110b"/><stop offset="55%" stop-color="#291e0e"/><stop offset="100%" stop-color="#111827"/>
+          </linearGradient>
+          <radialGradient id="dial2" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#060911"/>
+          </radialGradient>
+          <linearGradient id="gold2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fde68a"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#b45309"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg2)"/>
+        <circle cx="300" cy="190" r="145" fill="#f59e0b" fill-opacity="0.09"/>
+        <!-- Leather/Metal Straps -->
+        <rect x="242" y="14" width="116" height="68" rx="14" fill="#451a03" stroke="#92400e" stroke-width="2"/>
+        <rect x="242" y="298" width="116" height="68" rx="14" fill="#451a03" stroke="#92400e" stroke-width="2"/>
+        <!-- Crown -->
+        <rect x="406" y="170" width="16" height="40" rx="5" fill="url(#gold2)"/>
+        <!-- Bezel & Dial -->
+        <circle cx="300" cy="190" r="112" fill="url(#gold2)"/>
+        <circle cx="300" cy="190" r="98" fill="url(#dial2)" stroke="#fef3c7" stroke-width="1.5"/>
+        <!-- Hour Markers -->
+        <text x="300" y="116" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#fde68a">XII</text>
+        <text x="378" y="196" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#fde68a">III</text>
+        <text x="300" y="276" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#fde68a">VI</text>
+        <text x="222" y="196" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#fde68a">IX</text>
+        <text x="300" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" letter-spacing="2" fill="#fbbf24">CHRONO LUXE</text>
+        <!-- Hands -->
+        <line x1="300" y1="190" x2="262" y2="154" stroke="#fde68a" stroke-width="6" stroke-linecap="round"/>
+        <line x1="300" y1="190" x2="354" y2="146" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="300" y1="202" x2="300" y2="122" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="300" cy="190" r="7" fill="#fbbf24" stroke="#090d16" stroke-width="2"/>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makeSmartGlassesImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0b1021"/><stop offset="55%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#091c2b"/>
+          </linearGradient>
+          <linearGradient id="lens3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/><stop offset="50%" stop-color="#818cf8" stop-opacity="0.22"/><stop offset="100%" stop-color="#0f172a" stop-opacity="0.88"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg3)"/>
+        <circle cx="300" cy="190" r="150" fill="#6366f1" fill-opacity="0.10"/>
+        <!-- Temple Arms -->
+        <path d="M 92 152 L 154 144" stroke="#475569" stroke-width="11" stroke-linecap="round"/>
+        <path d="M 508 152 L 446 144" stroke="#475569" stroke-width="11" stroke-linecap="round"/>
+        <!-- Bridge -->
+        <path d="M 274 156 Q 300 140 326 156" fill="none" stroke="#94a3b8" stroke-width="9" stroke-linecap="round"/>
+        <!-- Left & Right Smart Lenses -->
+        <rect x="148" y="132" width="132" height="106" rx="28" fill="url(#lens3)" stroke="#e2e8f0" stroke-width="7"/>
+        <rect x="320" y="132" width="132" height="106" rx="28" fill="url(#lens3)" stroke="#e2e8f0" stroke-width="7"/>
+        <!-- Lens Glare & HUD Accent -->
+        <line x1="176" y1="150" x2="220" y2="218" stroke="#ffffff" stroke-opacity="0.28" stroke-width="7" stroke-linecap="round"/>
+        <line x1="348" y1="150" x2="392" y2="218" stroke="#ffffff" stroke-opacity="0.28" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="432" cy="150" r="5" fill="#22d3ee"/>
+        <text x="300" y="286" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="800" fill="#a5b4fc">UV400 POLARIZED • AUDIO & HUD</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makeSunglassesImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1c110a"/><stop offset="55%" stop-color="#331a0d"/><stop offset="100%" stop-color="#0f172a"/>
+          </linearGradient>
+          <linearGradient id="tint4" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fb923c" stop-opacity="0.45"/><stop offset="100%" stop-color="#18181b" stop-opacity="0.92"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg4)"/>
+        <circle cx="300" cy="190" r="150" fill="#f97316" fill-opacity="0.10"/>
+        <path d="M 88 154 L 148 146" stroke="#b45309" stroke-width="10" stroke-linecap="round"/>
+        <path d="M 512 154 L 452 146" stroke="#b45309" stroke-width="10" stroke-linecap="round"/>
+        <path d="M 276 154 Q 300 142 324 154" fill="none" stroke="#fbbf24" stroke-width="8" stroke-linecap="round"/>
+        <path d="M 146 136 H 280 V 188 Q 280 236 218 236 Q 154 236 146 184 Z" fill="url(#tint4)" stroke="#fbbf24" stroke-width="6"/>
+        <path d="M 320 136 H 454 L 454 184 Q 446 236 382 236 Q 320 236 320 188 Z" fill="url(#tint4)" stroke="#fbbf24" stroke-width="6"/>
+        <text x="300" y="286" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="800" fill="#fed7aa">AVIATOR PRO • ANTI-GLARE LENS</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makeSportWatchImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg5" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#061f1a"/><stop offset="55%" stop-color="#0b3b30"/><stop offset="100%" stop-color="#091326"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg5)"/>
+        <rect x="248" y="16" width="104" height="68" rx="14" fill="#0f766e" stroke="#2dd4bf" stroke-width="2"/>
+        <rect x="248" y="296" width="104" height="68" rx="14" fill="#0f766e" stroke="#2dd4bf" stroke-width="2"/>
+        <circle cx="300" cy="190" r="108" fill="#1e293b" stroke="#2dd4bf" stroke-width="6"/>
+        <circle cx="300" cy="190" r="92" fill="#041214"/>
+        <circle cx="300" cy="190" r="76" fill="none" stroke="#10b981" stroke-width="6" stroke-dasharray="190 290" transform="rotate(-90 300 190)"/>
+        <text x="300" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="800" fill="#6ee7b7">PACE / KM</text>
+        <text x="300" y="206" text-anchor="middle" font-family="system-ui,sans-serif" font-size="30" font-weight="900" fill="#ffffff">4:42</text>
+        <text x="300" y="228" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="800" fill="#fbbf24">5ATM WATERPROOF</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makeEarbudsImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg6" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#140b29"/><stop offset="55%" stop-color="#2b1452"/><stop offset="100%" stop-color="#091326"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg6)"/>
+        <rect x="190" y="88" width="220" height="204" rx="46" fill="#1e293b" stroke="#a855f7" stroke-width="4"/>
+        <rect x="218" y="116" width="164" height="92" rx="22" fill="#090d16" stroke="#38bdf8" stroke-width="2"/>
+        <text x="300" y="156" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="900" fill="#38bdf8">ANC • 99%</text>
+        <text x="300" y="182" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="800" fill="#34d399">BATTERY 100%</text>
+        <circle cx="255" cy="248" r="18" fill="#a855f7" fill-opacity="0.25" stroke="#c084fc" stroke-width="2.5"/>
+        <circle cx="345" cy="248" r="18" fill="#38bdf8" fill-opacity="0.25" stroke="#38bdf8" stroke-width="2.5"/>
+        <text x="300" y="253" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="900" fill="#ffffff">HI-FI</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makePowerBankImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg7" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#071a2f"/><stop offset="55%" stop-color="#0c2d52"/><stop offset="100%" stop-color="#111827"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg7)"/>
+        <rect x="165" y="102" width="270" height="176" rx="32" fill="#1e293b" stroke="#60a5fa" stroke-width="4"/>
+        <rect x="196" y="132" width="128" height="116" rx="20" fill="#090d16" stroke="#34d399" stroke-width="2"/>
+        <text x="260" y="186" text-anchor="middle" font-family="system-ui,sans-serif" font-size="34" font-weight="900" fill="#34d399">100%</text>
+        <text x="260" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="800" fill="#93c5fd">65W PD FAST</text>
+        <circle cx="378" cy="162" r="14" fill="#0f172a" stroke="#94a3b8" stroke-width="3"/>
+        <circle cx="378" cy="218" r="14" fill="#0f172a" stroke="#94a3b8" stroke-width="3"/>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makeDeskLampImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg8" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1a1608"/><stop offset="55%" stop-color="#2e240c"/><stop offset="100%" stop-color="#090d16"/>
+          </linearGradient>
+          <linearGradient id="beam8" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fde047" stop-opacity="0.45"/><stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg8)"/>
+        <polygon points="150,152 450,152 510,335 90,335" fill="url(#beam8)"/>
+        <rect x="135" y="128" width="330" height="24" rx="12" fill="#334155" stroke="#facc15" stroke-width="3"/>
+        <rect x="165" y="148" width="270" height="8" rx="4" fill="#fef08a"/>
+        <text x="300" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="800" fill="#fde047">TOUCH DIMMER • ZERO GLARE</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function makeNfcTagImg() {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380">
+        <defs>
+          <linearGradient id="bg9" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#260a1c"/><stop offset="55%" stop-color="#471033"/><stop offset="100%" stop-color="#091326"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="380" fill="url(#bg9)"/>
+        <circle cx="300" cy="190" r="102" fill="#1e293b" stroke="#f472b6" stroke-width="5"/>
+        <circle cx="300" cy="190" r="64" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="14 10"/>
+        <circle cx="300" cy="190" r="38" fill="none" stroke="#f472b6" stroke-width="3" stroke-dasharray="12 8"/>
+        <text x="300" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="900" fill="#ffffff">NFC</text>
+        <text x="300" y="328" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="800" fill="#f9a8d4">TAP TO SHARE • INSTANT LINK</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    const PRODUCTS = [
+      { id: "p1", cat: "Watches", name: "Vanguard Digital Smartwatch", desc: "AMOLED display, heart-rate sensor, steps & Bluetooth call dial.", price: 89, tag: "SMARTWATCH", img: makeSmartwatchImg() },
+      { id: "p2", cat: "Watches", name: "Chrono Gold Analog Watch", desc: "Classic gold-tone bezel, Roman markers & precision hands.", price: 115, tag: "CLASSIC WATCH", img: makeClassicWatchImg() },
+      { id: "p3", cat: "Watches", name: "AquaRun Sport Watch", desc: "Pace tracker, 5ATM water resistance & active ring progress.", price: 74, tag: "SPORT WATCH", img: makeSportWatchImg() },
+      { id: "p4", cat: "Eyewear", name: "CyberLens Smart Eyewear", desc: "Polarized smart frame with temple audio & sleek HUD look.", price: 96, tag: "SMART GLASSES", img: makeSmartGlassesImg() },
+      { id: "p5", cat: "Eyewear", name: "Solaris Gold Aviator Shades", desc: "Warm gradient tint, anti-glare protection & bold frame.", price: 58, tag: "SUNGLASSES", img: makeSunglassesImg() },
+      { id: "p6", cat: "Eyewear", name: "VisionX Blue-Block Glasses", desc: "Lightweight everyday frame built for screen & studio hours.", price: 46, tag: "EYEWEAR", img: makeSmartGlassesImg() },
+      { id: "p7", cat: "Tech", name: "Pulse ANC Wireless Buds", desc: "Active noise cancellation, battery status case & crisp audio.", price: 54, tag: "AUDIO", img: makeEarbudsImg() },
+      { id: "p8", cat: "Tech", name: "MagCharge 20K Power Bank", desc: "65W fast charging bank with digital percentage readout.", price: 62, tag: "POWER GEAR", img: makePowerBankImg() },
+      { id: "p9", cat: "Tech", name: "LumenBar & NFC Key Kit", desc: "Touch-dimmer desk light bar & tap-to-share smart NFC tag.", price: 52, tag: "DESK & NFC", img: makeDeskLampImg() }
+    ];
+
+    let activeCurrency = "INR";
+    let activePlanId = "middle";
+    let activeProdCat = "ALL";
+
+    let shopWallet = 240.00;
+    let ordersCount = 1;
+    const bag = { p1: 1 };
+
+    function formatCurrency(val, mode) {
+      return mode === "INR"
+        ? `₹${Number(val).toLocaleString("en-IN")}`
+        : `${Number(val).toLocaleString("en-US")} USDT`;
+    }
+
+    function getActivePlan() {
+      return SHOP_PLANS.find(p => p.id === activePlanId) || SHOP_PLANS[1];
+    }
+
+    function changeCurrency(mode) {
+      activeCurrency = mode;
+      const isINR = mode === "INR";
+      document.getElementById("currBtnINR").className = isINR
+        ? "px-4 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-pointer"
+        : "px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-800 text-slate-200 border border-slate-700 cursor-pointer";
+      document.getElementById("currBtnCRYPTO").className = !isINR
+        ? "px-4 py-2 rounded-xl text-xs font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-pointer"
+        : "px-4 py-2 rounded-xl text-xs font-extrabold bg-slate-800 text-slate-200 border border-slate-700 cursor-pointer";
+      renderOfferPlans();
+    }
+
+    function choosePlan(id) {
+      activePlanId = id;
+      renderOfferPlans();
+    }
+
+    function renderOfferPlans() {
+      const container = document.getElementById("offerTiersGrid");
+      const plan = getActivePlan();
+      const totalOffer = activeCurrency === "INR" ? plan.inrOff : plan.usdtOff;
+      const halfAmt = totalOffer / 2;
+
+      container.innerHTML = SHOP_PLANS.map(item => {
+        const selected = item.id === activePlanId;
+        const inrHalf = item.inrOff / 2;
+        const usdtHalf = item.usdtOff / 2;
+
+        return `
+          <div onclick="choosePlan('${item.id}')" class="rounded-2xl p-4 bg-gradient-to-br ${item.gradient} border transition cursor-pointer flex flex-col justify-between gap-3 ${selected ? "ring-2 ring-white/80 scale-[1.01]" : "opacity-95 hover:opacity-100"}">
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-base font-black text-white">${item.name}</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/25 text-emerald-200 border border-emerald-400/50">20% OFF</span>
+              </div>
+              <div class="text-[10px] font-extrabold text-amber-300 mt-0.5">${item.badge}</div>
+              <p class="text-xs text-slate-200 mt-1.5 leading-relaxed">${item.desc}</p>
+
+              <div class="mt-3 rounded-xl bg-slate-950/80 border border-white/10 p-3 space-y-2">
+                <div>
+                  <div class="text-[10px] font-bold uppercase text-sky-300">INR Rate</div>
+                  <div class="flex items-baseline gap-2">
+                    <span class="text-xs line-through text-slate-400">₹${item.inrReg.toLocaleString("en-IN")}</span>
+                    <span class="text-lg font-black text-emerald-300">₹${item.inrOff.toLocaleString("en-IN")}</span>
+                  </div>
+                  <div class="text-[10px] text-slate-300">50% Now: ₹${inrHalf.toLocaleString("en-IN")} • After Delivery: ₹${inrHalf.toLocaleString("en-IN")}</div>
+                </div>
+
+                <div class="border-t border-slate-800 pt-2">
+                  <div class="text-[10px] font-bold uppercase text-amber-300">Crypto Rate</div>
+                  <div class="flex items-baseline gap-2">
+                    <span class="text-xs line-through text-slate-400">${item.usdtReg} USDT</span>
+                    <span class="text-lg font-black text-amber-300">${item.usdtOff} USDT</span>
+                  </div>
+                  <div class="text-[10px] text-slate-300">50% Now: ${usdtHalf} USDT • After Delivery: ${usdtHalf} USDT</div>
+                </div>
+              </div>
+
+              <div class="text-[11px] text-sky-200 mt-2">
+                3-Year Free Support on Delivered Features (New features/add-ons extra)
+              </div>
+            </div>
+
+            <button type="button" onclick="event.stopPropagation(); choosePlan('${item.id}'); orderSelectedOffer();" class="w-full py-2.5 rounded-xl text-xs font-black transition cursor-pointer ${selected ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg" : "bg-slate-950/90 hover:bg-slate-900 text-white border border-white/15"}">
+              Order Now (${item.name})
+            </button>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("selectedOfferSummary").innerText =
+        `${plan.name} Selected — ${formatCurrency(totalOffer, activeCurrency)} (20% OFF | 50% Now: ${formatCurrency(halfAmt, activeCurrency)} • 50% After Delivery: ${formatCurrency(halfAmt, activeCurrency)})`;
+    }
+
+    function openOfferInbox() {
+      renderOfferPlans();
+      document.getElementById("offerModal").classList.remove("hidden");
+    }
+
+    function closeOfferInbox() {
+      document.getElementById("offerModal").classList.add("hidden");
+    }
+
+    function openFallbackPay(msg) {
+      document.getElementById("fallbackPayMessage").innerText = msg;
+      document.getElementById("fallbackPayModal").classList.remove("hidden");
+    }
+
+    function closeFallbackPay() {
+      document.getElementById("fallbackPayModal").classList.add("hidden");
+    }
+
+    function getParentWa() {
+      try {
+        if (window.parent && window.parent.globalSettings && window.parent.globalSettings.wa) {
+          return String(window.parent.globalSettings.wa).replace(/[^0-9]/g, "") || FALLBACK_WA;
+        }
+      } catch (_) {}
+      return FALLBACK_WA;
+    }
+
+    function orderSelectedOffer() {
+      const plan = getActivePlan();
+      const totalOffer = activeCurrency === "INR" ? plan.inrOff : plan.usdtOff;
+      const halfAmt = totalOffer / 2;
+      const wa = getParentWa();
+
+      const text =
+        `🚀 *NEW ORDER — ${COMPANY_NAME.toUpperCase()}*\n\n` +
+        `🛍️ *Shop:* ${APP_TITLE}\n` +
+        `📦 *Plan:* ${plan.name} (20% OFF)\n` +
+        `💱 *Currency:* ${activeCurrency === "INR" ? "INR (₹)" : "Crypto (USDT)"}\n` +
+        `💰 *Offer Price:* ${formatCurrency(totalOffer, activeCurrency)}\n` +
+        `💳 *Split:* 50% Now (${formatCurrency(halfAmt, activeCurrency)}) + 50% After Delivery (${formatCurrency(halfAmt, activeCurrency)})\n` +
+        `🛡️ *Support:* 3-Year Free Support on Delivered Features (New features/add-ons charged separately)`;
+
+      try {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({
+            type: "ORDER_DEMO_PLAN",
+            company: COMPANY_NAME,
+            app: APP_TITLE,
+            plan: plan.name,
+            currency: activeCurrency,
+            amount: totalOffer
+          }, "*");
+        }
+      } catch (_) {}
+
+      window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`, "_blank");
+    }
+
+    function paySelectedOffer() {
+      const plan = getActivePlan();
+      const totalOffer = activeCurrency === "INR" ? plan.inrOff : plan.usdtOff;
+      const halfNow = totalOffer / 2;
+      const label = `${APP_TITLE} — ${plan.name} (${formatCurrency(halfNow, activeCurrency)} 50% Advance of ${formatCurrency(totalOffer, activeCurrency)})`;
+      let handedOff = false;
+
+      try {
+        const frames = [window.parent, window.top].filter(Boolean);
+        for (const frame of frames) {
+          if (typeof frame.openPayModal === "function") {
+            frame.openPayModal(label, halfNow, activeCurrency);
+            handedOff = true;
+            break;
+          }
+          if (typeof frame.openPay === "function") {
+            frame.openPay(label, halfNow, activeCurrency);
+            handedOff = true;
+            break;
+          }
+          if (frame !== window) {
+            frame.postMessage({
+              type: "OPEN_PAY",
+              company: COMPANY_NAME,
+              app: APP_TITLE,
+              plan: plan.name,
+              label: label,
+              amount: halfNow,
+              totalAmount: totalOffer,
+              currency: activeCurrency
+            }, "*");
+          }
+        }
+      } catch (_) {}
+
+      if (!handedOff) {
+        openFallbackPay(
+          `Selected: ${APP_TITLE} (${plan.name} Plan) • 50% Advance Due Now: ${formatCurrency(halfNow, activeCurrency)} (Total Offer: ${formatCurrency(totalOffer, activeCurrency)}). Your parent portal has been signaled via postMessage if hosted inside ${COMPANY_NAME}; you can also confirm via WhatsApp.`
+        );
+      }
+    }
+
+    function getBagSummary() {
+      let count = 0;
+      let subtotal = 0;
+      for (const [pid, qty] of Object.entries(bag)) {
+        const prod = PRODUCTS.find(p => p.id === pid);
+        if (prod && qty > 0) {
+          count += qty;
+          subtotal += prod.price * qty;
+        }
+      }
+      return { count, subtotal };
+    }
+
+    function syncShopUI() {
+      const { count, subtotal } = getBagSummary();
+      document.getElementById("headerCartCount").innerText = count;
+      document.getElementById("heroBagCount").innerText = count;
+      document.getElementById("kpiBagTotal").innerText = "$" + subtotal.toFixed(2);
+      document.getElementById("kpiBagItemsSub").innerText = `${count} ${count === 1 ? "item" : "items"} in bag`;
+      document.getElementById("kpiShopWallet").innerText = "$" + shopWallet.toFixed(2);
+      document.getElementById("walletTabBal").innerText = "$" + shopWallet.toFixed(2);
+      document.getElementById("cartTabWallet").innerText = "$" + shopWallet.toFixed(2);
+      document.getElementById("cartTabSubtotal").innerText = "$" + subtotal.toFixed(2);
+      document.getElementById("kpiOrdersCount").innerText = ordersCount + (ordersCount === 1 ? " Order" : " Orders");
+      renderCartList();
+    }
+
+    function filterProducts(cat) {
+      activeProdCat = cat;
+      const map = { ALL: "pCatALL", Watches: "pCatWatches", Eyewear: "pCatEyewear", Tech: "pCatTech" };
+      Object.entries(map).forEach(([key, id]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.className = (key === cat)
+          ? "px-3.5 py-1.5 rounded-xl text-xs font-black bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-pointer"
+          : "px-3.5 py-1.5 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 border border-slate-700 hover:border-sky-400 cursor-pointer";
+      });
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      const list = activeProdCat === "ALL" ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeProdCat);
+
+      grid.innerHTML = list.map(p => `
+        <div class="rounded-2xl bg-slate-900/95 border border-slate-800 hover:border-sky-400/50 transition overflow-hidden flex flex-col justify-between shadow-xl">
+          <div>
+            <div class="relative bg-slate-950 border-b border-slate-800/80">
+              <img src="${p.img}" alt="${p.name}" class="w-full h-52 sm:h-56 object-cover block" />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-slate-950/85 text-amber-300 border border-amber-400/45">
+                ${p.tag}
+              </span>
+              <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-slate-950/85 text-sky-300 border border-sky-400/45">
+                ${p.cat}
+              </span>
+            </div>
+
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-2">
+                <h3 class="text-sm sm:text-base font-black text-white leading-snug">${p.name}</h3>
+                <span class="text-base font-black text-emerald-300 shrink-0">$${p.price}</span>
+              </div>
+              <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">${p.desc}</p>
+            </div>
+          </div>
+
+          <div class="px-4 pb-4 grid grid-cols-2 gap-2.5">
+            <button type="button" onclick="addToBag('${p.id}')" class="py-2.5 rounded-xl text-xs font-black bg-slate-800 hover:bg-slate-700 text-sky-300 border border-sky-500/35 transition cursor-pointer">
+              <i class="fas fa-cart-plus mr-1"></i> Add to Bag
+            </button>
+            <button type="button" onclick="instantBuyProduct('${p.id}')" class="py-2.5 rounded-xl text-xs font-black bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:opacity-95 transition cursor-pointer">
+              <i class="fas fa-bolt mr-1"></i> Buy Now
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderCartList() {
+      const box = document.getElementById("cartItemsList");
+      const entries = Object.entries(bag).filter(([_, qty]) => qty > 0);
+      if (!entries.length) {
+        box.innerHTML = `<div class="rounded-2xl bg-slate-950/80 border border-slate-800 p-5 text-center text-xs text-slate-400">Your shopping bag is currently empty. Add products from the Shop tab.</div>`;
+        return;
+      }
+
+      box.innerHTML = entries.map(([pid, qty]) => {
+        const p = PRODUCTS.find(item => item.id === pid);
+        if (!p) return "";
+        return `
+          <div class="rounded-2xl bg-slate-950/90 border border-slate-800 p-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div class="flex items-center gap-3.5">
+              <img src="${p.img}" alt="${p.name}" class="w-24 h-16 rounded-xl object-cover shrink-0 border border-slate-800" />
+              <div>
+                <div class="text-xs sm:text-sm font-black text-white">${p.name}</div>
+                <div class="text-[11px] text-emerald-300 font-bold">$${p.price} each • Total: $${(p.price * qty).toFixed(2)}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 self-end sm:self-center">
+              <button type="button" onclick="changeBagQty('${p.id}', -1)" class="w-8 h-8 rounded-lg bg-slate-800 text-white font-black text-xs cursor-pointer">-</button>
+              <span class="px-2.5 text-xs font-black text-white">${qty}</span>
+              <button type="button" onclick="changeBagQty('${p.id}', 1)" class="w-8 h-8 rounded-lg bg-slate-800 text-white font-black text-xs cursor-pointer">+</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function addShopFeed(msg, tag, green = true) {
+      const box = document.getElementById("shopActivityFeed");
+      const row = document.createElement("div");
+      row.className = `rounded-xl bg-slate-950/85 border ${green ? "border-emerald-500/35" : "border-amber-500/35"} px-3 py-2.5 flex items-center justify-between gap-2`;
+      row.innerHTML = `<span class="text-slate-200">${msg}</span><span class="font-extrabold ${green ? "text-emerald-400" : "text-amber-400"} shrink-0">${tag}</span>`;
+      box.prepend(row);
+    }
+
+    function addShopLedger(tag, detail, amtStr, isPos = true) {
+      const box = document.getElementById("shopWalletLedger");
+      const row = document.createElement("div");
+      row.className = `rounded-xl bg-slate-950/85 border ${isPos ? "border-emerald-500/35" : "border-amber-500/35"} px-3.5 py-2.5 flex items-center justify-between gap-2`;
+      row.innerHTML = `
+        <span class="text-slate-200"><strong class="${isPos ? "text-emerald-300" : "text-amber-300"}">[${tag}]</strong> ${detail}</span>
+        <span class="font-extrabold ${isPos ? "text-emerald-400" : "text-amber-400"} shrink-0">${amtStr}</span>
+      `;
+      box.prepend(row);
+    }
+
+    function addToBag(pid) {
+      bag[pid] = (bag[pid] || 0) + 1;
+      const prod = PRODUCTS.find(p => p.id === pid);
+      document.getElementById("shopToast").innerText = `Added "${prod?.name}" to bag!`;
+      syncShopUI();
+    }
+
+    function changeBagQty(pid, delta) {
+      const next = (bag[pid] || 0) + delta;
+      if (next <= 0) delete bag[pid];
+      else bag[pid] = next;
+      syncShopUI();
+    }
+
+    function instantBuyProduct(pid) {
+      const prod = PRODUCTS.find(p => p.id === pid);
+      if (!prod) return;
+      if (shopWallet < prod.price) {
+        alert("Insufficient demo wallet balance. Deposit funds in the Wallet tab first.");
+        return;
+      }
+      shopWallet -= prod.price;
+      ordersCount += 1;
+      syncShopUI();
+      document.getElementById("shopToast").innerText = `Bought "${prod.name}" for $${prod.price}!`;
+      addShopFeed(`Instant Buy: ${prod.name} (-$${prod.price})`, "ORDERED", true);
+      addShopLedger("ORDER", `Bought ${prod.name}`, `-$${prod.price.toFixed(2)}`, false);
+    }
+
+    function checkoutBagNow() {
+      const { count, subtotal } = getBagSummary();
+      if (!count || subtotal <= 0) {
+        alert("Your bag is empty.");
+        return;
+      }
+      if (shopWallet < subtotal) {
+        alert("Insufficient demo wallet balance for this bag total.");
+        return;
+      }
+      shopWallet -= subtotal;
+      ordersCount += 1;
+      Object.keys(bag).forEach(k => delete bag[k]);
+      syncShopUI();
+      addShopFeed(`Bag Order (${count} items) confirmed (-$${subtotal.toFixed(2)})`, "CONFIRMED", true);
+      addShopLedger("ORDER", `Bag Checkout (${count} items)`, `-$${subtotal.toFixed(2)}`, false);
+      alert(`Demo Order Confirmed! Total: $${subtotal.toFixed(2)}`);
+    }
+
+    function doShopDeposit() {
+      const amt = Number(document.getElementById("sDepAmt").value);
+      const method = document.getElementById("sDepMethod").value;
+      if (!amt || amt <= 0) {
+        alert("Enter a valid deposit amount.");
+        return;
+      }
+      shopWallet += amt;
+      document.getElementById("sDepAmt").value = "";
+      syncShopUI();
+      addShopLedger("DEPOSIT", `Added via ${method}`, `+$${amt.toFixed(2)}`, true);
+      addShopFeed(`Deposited +$${amt.toFixed(2)} (${method})`, "DEPOSIT", true);
+    }
+
+    function doShopWithdraw() {
+      const amt = Number(document.getElementById("sWdAmt").value);
+      const method = document.getElementById("sWdMethod").value;
+      if (!amt || amt <= 0 || amt > shopWallet) {
+        alert("Enter a valid withdrawal amount within wallet balance.");
+        return;
+      }
+      shopWallet -= amt;
+      document.getElementById("sWdAmt").value = "";
+      syncShopUI();
+      addShopLedger("WITHDRAW", `Sent via ${method}`, `-$${amt.toFixed(2)}`, false);
+      addShopFeed(`Withdrew -$${amt.toFixed(2)} (${method})`, "WITHDRAW", false);
+    }
+
+    function scrollToShopAbout() {
+      switchTab("tabShop");
+      setTimeout(() => {
+        document.getElementById("shopDescBox")?.scrollIntoView({ behavior: "smooth" });
+      }, 60);
+    }
+
+    function switchTab(id) {
+      ["tabShop", "tabCart", "tabWallet"].forEach(tab => {
+        document.getElementById(tab)?.classList.add("hidden");
+        const navBtn = document.getElementById("nav_" + tab);
+        if (navBtn) {
+          navBtn.className = "py-2 px-1 rounded-xl text-[11px] font-extrabold flex flex-col items-center gap-0.5 bg-slate-900 text-slate-300 hover:text-white cursor-pointer";
+        }
+      });
+      document.getElementById(id)?.classList.remove("hidden");
+      const activeNav = document.getElementById("nav_" + id);
+      if (activeNav) {
+        activeNav.className = "py-2 px-1 rounded-xl text-[11px] font-extrabold flex flex-col items-center gap-0.5 bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-pointer";
+      }
+    }
+
+    renderProducts();
+    syncShopUI();
+    renderOfferPlans();
+  </script>
+</body>
+</html>
